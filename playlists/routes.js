@@ -1,27 +1,37 @@
 const { Router } = require('express')
 const Playlist = require('./model')
 const User = require('../users/model')
+const auth =  require('../auth/middleware')
+const {toData} = require('../auth/jwt')
 
 const router = new Router()
 
-router.post('/playlists', (req, res, next) => {
-    Playlist
-      .create(req.body)
-      .then(playlist => {
-        if (!playlist) {
-          return res.status(404).send({
-            message: `Playlist does not exist`
-          })
-        }
-        return res.status(201).send(playlist)
+router.post('/playlists', auth, (req, res, next) => {
+    const name = req.body.name
+    if(!name) {
+      res.status(400).send({
+        message: `Please supply a Playlist name and description(optional)`
       })
-      .catch(error => next(error))
+    } else {
+        Playlist
+          .create(req.body)
+          .then(playlist => {
+            if (!playlist) {
+              return res.status(404).send({
+                message: `Playlist does not exist`
+              })
+            }
+            return res.status(201).send(playlist)
+          })
+          .catch(error => next(error))
+    }
 })
 
-router.get('/playlists', (req, res, next) => {
+router.get('/playlists', auth, (req, res, next) => {
   const limit = req.query.limit || 25
   const offset = req.query.offset || 0
-
+  
+  
   Promise.all([
     Playlist.count(),
     Playlist.findAll({ limit, offset })

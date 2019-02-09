@@ -6,7 +6,7 @@ function auth(req, res, next) {
   if (auth && auth[0] === 'Bearer' && auth[1]) {
     try {
       const data = toData(auth[1])
-      console.log("this is the data",data)
+    //   console.log("this is the data",data)
       User
         .findByPk(data.userID)
         .then(user => {
