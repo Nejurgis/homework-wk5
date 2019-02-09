@@ -5,6 +5,16 @@ const router = new Router()
 const bcrypt = require('bcrypt')
 const auth =  
 
-router.get('/users', (req,res,next) => {
- 
+router.post('/tokens', (req,res) => {
+    const email = req.body.email;
+    const password = req.body.password
+    if(!email || !password) {
+        res.status(400).send({
+            message: `Please supply a valid email and password`
+        })
+    } else {
+        
+    }
 })
+
+module.exports = router
