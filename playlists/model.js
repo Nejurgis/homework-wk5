@@ -4,7 +4,7 @@ const User = require('../users/model')
 
 const Playlist = sequelize.define('playlists', {
   userId: {
-    type: Sequelize_INTEGER,
+    type: Sequelize.INTEGER,
     field: 'user_id'
   },
   name: {
