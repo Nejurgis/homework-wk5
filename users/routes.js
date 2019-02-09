@@ -15,11 +15,23 @@ router.get('/users', (req, res) => {
 })
 
 
-// router.post('/users', (req,res,next)=> {
-//     const user = {
-//         email: req.body.email,
-//         password: bcrypt.hashSync(req.body.password, 10),
-//     }
-// })
+router.post('/users', (req,res,next)=> {
+    const user = {
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password, 10),
+    } 
+    if (!user) {
+        res.status(405).send({
+            message: 'Please supply a valid email & Password'
+        })
+    } else {
+        Users.create(user)
+            .then(()=>{
+                res.send({
+                    message: 'A new User was been created'
+                })
+            })
+    }
+})
 
 module.exports = router
