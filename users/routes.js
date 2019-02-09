@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 
 const router = new Router()
 
-router.get('/users', (req, res, next) => {
+router.get('/users', (req, res) => {
     Users
         .findAll()
         .then(user => {
@@ -14,10 +14,12 @@ router.get('/users', (req, res, next) => {
     
 })
 
-module.exports = router
+
 // router.post('/users', (req,res,next)=> {
 //     const user = {
 //         email: req.body.email,
 //         password: bcrypt.hashSync(req.body.password, 10),
 //     }
 // })
+
+module.exports = router
