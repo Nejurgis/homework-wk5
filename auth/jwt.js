@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken') 
 
 const secret = process.env.JWT_SECRET || 'e9rp^&^*&@9sejg)HW-W5)jpfds8394jdsfn,m'
 
